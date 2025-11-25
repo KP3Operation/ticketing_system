@@ -3,9 +3,8 @@
         <div class="app-brand demo">
             <a href="{{ route('dashboard') }}" class="app-brand-link">
                 <span class="app-brand-logo demo">
-                    <img src="{{ asset('assets/img/logo/logo.png') }}" width="24" alt="">
+                    <img src="{{ asset('assets/img/logo/logo.jpg') }}" width="100" alt="">
                 </span>
-                <span class="app-brand-text demo menu-text fw-bold ms-2">Aviat</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">

@@ -13,6 +13,7 @@ class Proyek extends Model
 
     protected $fillable = ['namaProyek', 'tipeRs', 'group', 'namaGroup', 'tglMulai', 'tglAkhir', 'konsepKerjasama', 'alamat'];
 
+
     public function mandays() {
         return $this->hasOne(Mandays::class, 'idProyek', 'idProyek');
     }

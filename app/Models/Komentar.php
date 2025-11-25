@@ -12,6 +12,14 @@ class Komentar extends Model
     protected $guarded = [];
 
     protected $primaryKey = 'idKomentar';
+    
+    protected static function boot() {
+        Parent::boot();
+
+        static::deleting(function($komentar) {
+            $komentar->images()->delete();
+        });
+    }
 
     public function users() {
         return $this->belongsTo(User::class, 'userId', 'userId');

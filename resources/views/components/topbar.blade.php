@@ -12,20 +12,30 @@
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar">
-                        <img src="{{ asset('storage/profiles/' . $user->image) }}" alt class="rounded-circle" />
+                        @if ($user->profile && $user->profile->path)
+                            @php
+                                $filename = basename($user->profile->path);
+                                $extension = pathinfo($filename, PATHINFO_EXTENSION);
+                            @endphp
+                            @if (in_array($extension, ['jpg', 'jpeg', 'png']))
+                                <img src="{{ asset('ticketing_system/storage/app/public/' . $user->profile->path) }}" class="rounded-circle" />
+                            @endif
+                        @else
+                            <img src="{{ asset('ticketing_system/storage/app/public/profiles/profile.png') }}" class="rounded-circle" />
+                        @endif
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{{ route('masterUser.show', $user->userId) }}">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar">
                                         @if (file_exists('storage/uploads/' . $user->image))
-                                            <img src="{{ asset('storage/uploads/' . $user->image) }}" alt
+                                            <img src="{{ asset('ticketing_system/storage/app/public/profiles/' . $user->image) }}" alt
                                                 class="rounded-circle" />
                                         @else
-                                            <img src="{{ asset('storage/uploads/profile.png') }}" alt
+                                            <img src="{{ asset('ticketing_system/storage/app/public/profiles/profile.png') }}" alt
                                                 class="rounded-circle" />
                                         @endif
                                     </div>
@@ -41,9 +51,9 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="{{ route('masterUser.show', $user->userId) }}">
-                            <i class="bx bx-user me-2"></i>
-                            <span class="align-middle">My Profile</span>
+                        <a href="{{ route('updatePassword') }}" class="dropdown-item">
+                            <i class="bx bx-key me-2"></i>
+                            <span class="align-middle">Ubah Password</span>
                         </a>
                     </li>
                     <li>

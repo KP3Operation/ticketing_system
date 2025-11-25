@@ -12,38 +12,38 @@
 
     <div class="card">
         <div class="table-responsive">
-            <table class="table table-sm text-start" id="tableTiket">
+            <table class="table table-sm text-start table-striped" id="tableTiket">
                 <thead class="table-dark">
                     <tr class="text-start">
-                        <th>Select</th>
-                        <th>ID Tiket</th>
-                        <th>Nama Proyek</th>
-                        <th>Judul</th>
-                        <th>Deskripsi</th>
-                        <th>Alasan Permintaan</th>
-                        <th>Dampak</th>
-                        <th>Kategori</th>
-                        <th>Prioritas</th>
-                        <th>Severity</th>
-                        <th>Status Tiket</th>
-                        <th>PIC RS</th>
-                        <th>Assign To</th>
-                        <th>PL Aviat</th>
-                        <th>Mandays</th>
-                        <th>Status Mandays</th>
-                        <th>Tanggal Kirim</th>
-                        <th>Status Persetujuan</th>
-                        <th>Tanggal Persetujuan</th>
-                        <th>Tag</th>
-                        <th>Due Date</th>
-                        <th>Tanggal Dikerjakan</th>
-                        <th>Tanggal Selesai</th>
-                        <th>Aksi</th>
+                        <th class="text-white">Select</th>
+                        <th class="text-white">ID Tiket</th>
+                        <th class="text-white">Nama Proyek</th>
+                        <th class="text-white">Judul</th>
+                        <th class="text-white">Deskripsi</th>
+                        <th class="text-white">Alasan Permintaan</th>
+                        <th class="text-white">Dampak</th>
+                        <th class="text-white">Kategori</th>
+                        <th class="text-white">Prioritas</th>
+                        <th class="text-white">Severity</th>
+                        <th class="text-white">Status Tiket</th>
+                        <th class="text-white">PIC RS</th>
+                        <th class="text-white">Assign To</th>
+                        <th class="text-white">PL Aviat</th>
+                        <th class="text-white">Mandays</th>
+                        <th class="text-white">Status Mandays</th>
+                        <th class="text-white">Tanggal Kirim</th>
+                        <th class="text-white">Status Persetujuan</th>
+                        <th class="text-white">Tanggal Persetujuan</th>
+                        <th class="text-white">Tag</th>
+                        <th class="text-white">Due Date</th>
+                        <th class="text-white">Tanggal Dikerjakan</th>
+                        <th class="text-white">Tanggal Selesai</th>
+                        <th class="text-white">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($tikets as $tiket)
-                        <tr class="text-start">
+                    @foreach ($tikets as $tiket)
+                    <tr class="text-start">
                             <td><input type="checkbox"></td>
                             <td><a href="{{ route('tiket.show', $tiket->idTiket) }}">{{ $tiket->idTiket }}</a></td>
                             <td>{{ $tiket->proyeks->namaProyek ?? 'N/A' }}</td>
@@ -67,9 +67,9 @@
                             </td>
                             <td>{{ $tiket->severity }}</td>
                             <td>{{ $tiket->status }}</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ $tiket->picRS->nama }}</td>
+                            <td>{{ $tiket->assign->nama ?? 'Belum ditentukan'}}</td>
+                            <td>{{ $tiket->PLAviat->nama ?? 'Belum ditentukan' }}</td>
                             <td>{{ $tiket->mandays }}</td>
                             <td>
                                 @if (Auth::user()->statusUser == 0 && $tiket->statusMandays === null)
@@ -131,12 +131,7 @@
                                 </div>
                             </td>
                         </tr>
-                    @empty
-                        <tr>
-                            <th colspan="9" class="text-center">Tidak ada data untuk
-                                ditampilkan</th>
-                        </tr>
-                    @endforelse
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -180,8 +175,16 @@
                         columns: ':visible:not(:first-child)'
                     }
                 },
-                'colvis',
+                {
+                    extend: 'colvis',
+                }
             ],
+            'columnDefs': [{
+                targets: [
+                    4, 5, 6, 11, 12, 13, 16, 17, 18, 19, 21, 22
+                ],
+                visible: false,
+            }]
         });
     </script>
 @endpush

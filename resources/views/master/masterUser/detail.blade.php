@@ -9,8 +9,11 @@
         <div class="card mb-4">
             <div class="card-body">
                 <div class="d-flex align-items-start align-items-sm-center gap-4">
-                    <img src="{{ asset('storage/uploads/' . $users->image) }}"
-                        class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
+                    @if ($users->profile && $users->profile->path)
+                        <img src="{{ asset('ticketing_system/storage/app/public/profiles/') }}" alt class="rounded-circle" style="width: 100px;" />
+                    @else
+                        <img src="{{ asset('ticketing_system/storage/app/public/profiles/profile.png') }}" alt class="rounded-circle" style="width: 100px;" />
+                    @endif
                 </div>
             </div>
             <hr class="my-0" />
@@ -50,41 +53,19 @@
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="lastName" class="form-label">Nama Proyek</label>
-                            <select name="idProyek" id="idProyek" class="form-select">
-                                @foreach ($proyeks as $proyek)
-                                    <option value="{{ $proyek->idProyek }}"
-                                        @selected($users->idProyek == $proyek->idProyek)>
-                                        {{ $proyek->namaProyek }}</option>
-                                @endforeach
-                            </select>
+                            <input class="form-control" type="text" name="idProyek" value="{{ $proyeks->firstWhere('idProyek', $users->idProyek)->namaProyek ?? '' }}" disabled>
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="lastName" class="form-label">Nama Department</label>
-                            <input class="form-control" name="idDepartment"
-                                value="{{ $users->idDepartment }}" />
+                            <input class="form-control" name="idDepartment" value="{{ $users->idDepartment }}" disabled />
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="lastName" class="form-label">Nama Grup User</label>
-                            <select name="role" class="form-select">
-                                <option value="" disabled selected>Pilih Grup User</option>
-                                @foreach ($roles as $role)
-                                    <option @selected($users->hasRole($role->name))
-                                        value="{{ $role->name }}">
-                                        {{ $role->name }}
-                                    </option>
-                                @endforeach
-                            </select>
+                            <input type="text" class="form-control" name="role" value="{{ $roles->firstWhere('name', $users->roles->first()->name)->name ?? '' }}" disabled>
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="lastName" class="form-label">Status Akun</label>
-                            <select name="status" id="status" class="form-select">
-                                <option value="1"
-                                    {{ old('status', $users->status) == '1' ? 'selected' : '' }}>
-                                    Aktif</option>
-                                <option value="0"
-                                    {{ old('status', $users->status) == '0' ? 'selected' : '' }}>
-                                    Tidak Aktif</option>
-                            </select>
+                            <input type="text" class="form-control" name="statusUser" value="{{ $users->statusUser == 1 ? 'Aktif' : 'Tidak Aktif' }}" disabled>
                         </div>
                         <div class="mt-2">
                             <button type="button" class="btn btn-danger me-2"

@@ -59,11 +59,11 @@
                                     $extension = pathinfo($filename, PATHINFO_EXTENSION);
                                 @endphp
                                 @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'bmp']))
-                                    <img style="width: 30%; height: auto;"
-                                        src="{{ asset('storage/images/' . $image->path) }}" alt="Image"><br>
+                                    <img style="width: 40%; height: auto;" class="mb-3"
+                                    src="{{ asset('ticketing_system/storage/app/public/images/' . $image->path) }}" alt="Image"><br>
                                 @else
                                     <a
-                                        href="{{ asset('storage/images/' . $image->path) }}">{{ $filename }}</a><br>
+                                        href="{{ asset('ticketing_system/storage/app/public/images/' . $image->path) }}">{{ $filename }}</a><br>
                                 @endif
                             @endforeach
                         </div>

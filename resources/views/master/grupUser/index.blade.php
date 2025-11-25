@@ -11,25 +11,25 @@
 
     <div class="card">
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-striped" id="grupTable">
                 <thead class="table-dark">
                     <tr>
-                        <th class="text-start">Grup User</th>
-                        <th class="text-start">Akses Menu</th>
-                        <th class="text-start">Deskripsi</th>
-                        <th>Aksi</th>
+                        <th class="text-white col-2">Grup User</th>
+                        <th class="text-white">Akses Menu</th>
+                        <th class="text-white">Deskripsi</th>
+                        <th class="text-white">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($grupUsers as $grupUser)
-                        <tr>
-                            <td class="text-start">{{ $grupUser->name }}</td>
-                            <td class="text-start">
+                        <tr class="text-start">
+                            <td>{{ $grupUser->name }}</td>
+                            <td>
                                 @foreach ($grupUser->permissions as $permission)
                                     {{ $permission->name }},
                                 @endforeach
                             </td>
-                            <td class="text-start">{{ $grupUser->deskripsi }}</td>
+                            <td>{{ $grupUser->deskripsi }}</td>
                             <td>
                                 <div class="dropdown">
                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -57,3 +57,18 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script
+        src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.1.3/b-3.1.1/b-colvis-3.1.1/b-html5-3.1.1/b-print-3.1.1/sl-2.0.4/datatables.min.js">
+    </script>
+    <script>
+        var table = $('#grupTable').DataTable({
+            layout: {
+                topEnd: [
+                    'search',
+                ],
+            },
+        })
+    </script>
+@endpush

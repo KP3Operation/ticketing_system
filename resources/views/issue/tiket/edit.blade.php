@@ -58,7 +58,9 @@
                     <div class="col-sm-4">
                         <select name="severity" id="basic-default-severity" class="form-select" {{ $disabled }}>
                             @foreach (['Minor', 'Mayor'] as $item)
-                                <option value="{{ $item }}" {{ old('severity', $tikets->severity == $item ? 'selected' : '') }}>{{ $item }}</option>
+                                <option value="{{ $item }}"
+                                    {{ old('severity', $tikets->severity == $item ? 'selected' : '') }}>
+                                    {{ $item }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -110,7 +112,7 @@
                         Date</label>
                     <div class="col-sm-4">
                         <input type="date" name="dueDate" class="form-control" id="basic-default-dueDate"
-                            value="{{ old('dueDate', $tikets->dueDate ? \Carbon\Carbon::parse($tikets->dueDate)->format('Y-m-d') : '') }}"
+                            value="{{ old('dueDate', $tikets->dueDate)}}"
                             {{ $readonly }} />
                     </div>
                 </div>
@@ -119,15 +121,13 @@
                         Dikerjakan</label>
                     <div class="col-sm-4">
                         <input type="date" name="tglDikerjakan" class="form-control" id="basic-default-tglDikerjakan"
-                            value="{{ old('tglDikerjakan', $tikets->tglDikerjakan ? \Carbon\Carbon::parse($tikets->tglDikerjakan)->format('Y-m-d') : '') }}"
-                            {{ $readonly }} />
+                            value="{{ old('tglDikerjakan', $tikets->tglDikerjakan) }}" {{ $readonly }} />
                     </div>
                     <label class="col-sm-2 col-form-label" for="basic-default-tglSelesai">Tanggal
                         Selesai</label>
                     <div class="col-sm-4">
                         <input type="date" name="tglSelesai" class="form-control" id="basic-default-tglSelesai"
-                            value="{{ old('tglSelesai', $tikets->tglSelesai ? \Carbon\Carbon::parse($tikets->tglSelesai)->format('Y-m-d') : '') }}"
-                            {{ $readonly }} />
+                            value="{{ old('tglSelesai', $tikets->tglSelesai) }}" {{ $readonly }} />
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -208,9 +208,9 @@
                             @endphp
                             @if (in_array($extension, ['jpg', 'jpeg', 'png']))
                                 <img style="width: 30%; height: auto;"
-                                    src="{{ asset('storage/lampirans/' . $image->path) }}"><br>
+                                    src="{{ asset('ticketing_system/storage/app/public/images/' . $image->path) }}"><br>
                             @else
-                                <a href="{{ asset('storage/lampirans/' . $image->path) }}">{{ $filename }}</a><br>
+                                <a href="{{ asset('ticketing_system/storage/app/public/images/' . $image->path) }}" target="blank">{{ $filename }}</a><br>
                             @endif
                         @empty
                             <input type="file" name="lampiran" id="lampiran" class="filepond"

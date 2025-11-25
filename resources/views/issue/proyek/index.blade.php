@@ -11,18 +11,18 @@
 
     <div class="card">
         <div class="table-responsive">
-            <table class="table small-font-size">
+            <table class="table small-font-size table-striped text-start" id="proyekTable">
                 <thead class="table-dark">
                     <tr>
-                        <th>Nama Proyek</th>
-                        <th>Tipe RS</th>
-                        <th>Group</th>
-                        <th>Nama Group</th>
-                        <th>Tanggal Mulai</th>
-                        <th>Tanggal Akhir</th>
-                        <th>Konsep Kerjasama</th>
-                        <th>Alamat</th>
-                        <th>Aksi</th>
+                        <th class="text-white">Nama Proyek</th>
+                        <th class="text-white">Tipe RS</th>
+                        <th class="text-white">Group</th>
+                        <th class="text-white">Nama Group</th>
+                        <th class="text-white">Tanggal Mulai</th>
+                        <th class="text-white">Tanggal Akhir</th>
+                        <th class="text-white">Konsep Kerjasama</th>
+                        <th class="text-white">Alamat</th>
+                        <th class="text-white">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="text-start">
@@ -77,3 +77,18 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script
+        src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.1.3/b-3.1.1/b-colvis-3.1.1/b-html5-3.1.1/b-print-3.1.1/sl-2.0.4/datatables.min.js">
+    </script>
+    <script>
+        var table = $('#proyekTable').DataTable({
+            layout: {
+                topEnd: [
+                    'search',
+                ],
+            },
+        })
+    </script>
+@endpush

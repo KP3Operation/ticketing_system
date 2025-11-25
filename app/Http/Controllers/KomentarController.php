@@ -11,6 +11,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
+
 
 class KomentarController extends Controller
 {
@@ -43,7 +45,13 @@ class KomentarController extends Controller
         $komentar = Komentar::create($validator->validated());
 
         foreach ($temporaryFiles as $temporaryFile) {
-            Storage::copy('images/tmp/' . $temporaryFile->folder . '/' . $temporaryFile->file, 'images/' . $temporaryFile->folder . '/' . $temporaryFile->file);
+            $folderPath = 'public/images/' . $temporaryFile->folder;
+            if (!Storage::exists($folderPath)) {
+                Storage::makeDirectory($folderPath);
+                chmod(Storage::path($folderPath), 0755);
+            }
+
+            Storage::copy('images/tmp/' . $temporaryFile->folder . '/' . $temporaryFile->file, $folderPath . '/' . $temporaryFile->file);
             Image::create([
                 'idKomentar' => $komentar->idKomentar,
                 'name' => $temporaryFile->file,
@@ -59,7 +67,7 @@ class KomentarController extends Controller
     public function destroy($idKomentar)
     {
         $komentar = Komentar::find($idKomentar);
-        if ($komentar && $komentar->userId === Auth::user()->userId) {
+        if ($komentar && $komentar->userId) {
             // Delete associated images
             $komentar->images()->delete();
 

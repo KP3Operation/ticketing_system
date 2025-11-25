@@ -28,7 +28,7 @@ class MasterUserController extends Controller
                 return $query->select('name');
             })
             ->latest()
-            ->paginate(10);
+            ->paginate(50);
 
         $roles = Role::orderBy('name')->get();
         $proyeks = Proyek::all();
@@ -67,7 +67,13 @@ class MasterUserController extends Controller
 
         if ($user) {
             foreach($temporaryFiles as $temporaryFile) {
-                Storage::copy('images/tmp/' . $temporaryFile->folder . '/' . $temporaryFile->file, 'profiles/' . $temporaryFile->folder . '/' . $temporaryFile->file);
+                $folderPath = 'public/profiles/' . $temporaryFile->folder;
+                if (!Storage::exists($folderPath)) {
+                    Storage::makeDirectory($folderPath);
+                    chmod(Storage::path($folderPath), 0755);
+                }
+                
+                Storage::copy('images/tmp/' . $temporaryFile->folder . '/' . $temporaryFile->file, $folderPath . '/' . $temporaryFile->file);
                 Profile::create([
                     'userId' => $user->userId,
                     'name' => $temporaryFile->file,

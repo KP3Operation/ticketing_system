@@ -37,6 +37,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             'menu.permission',
+            'prevent.back.history',
         ],
 
         'api' => [
@@ -66,5 +67,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         'menu.permission' => \App\Http\Middleware\MenuMiddleware::class,
+        'prevent.back.history' => \App\Http\Middleware\PreventBackHistory::class,
     ];
 }

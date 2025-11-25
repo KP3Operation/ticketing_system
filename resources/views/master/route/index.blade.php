@@ -10,14 +10,14 @@
 
 <div class="card">
     <div class="table-responsive">
-        <table class="table small-font-size">
+        <table class="table small-font-size text-start table-striped" id="routeTable">
             <thead class="table-dark">
                 <tr>
-                    <th>Nama</th>
-                    <th>Menu</th>
-                    <th>Icon</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
+                    <th class="text-white">Nama</th>
+                    <th class="text-white">Menu</th>
+                    <th class="text-white">Icon</th>
+                    <th class="text-white">Status</th>
+                    <th class="text-white">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -72,3 +72,18 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+    <script
+        src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.1.3/b-3.1.1/b-colvis-3.1.1/b-html5-3.1.1/b-print-3.1.1/sl-2.0.4/datatables.min.js">
+    </script>
+    <script>
+        var table = $('#routeTable').DataTable({
+            layout: {
+                topEnd: [
+                    'search',
+                ],
+            },
+        })
+    </script>
+@endpush

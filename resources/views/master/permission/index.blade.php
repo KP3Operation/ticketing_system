@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('title', 'Izin')
-@include('layouts.sidebar')
 @section('content')
     <div class="container d-flex justify-content-between align-items-center">
         @include('master.permission.create')
@@ -11,13 +10,13 @@
 
     <div class="card">
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-striped text-start" id="permissionTable">
                 <thead class="table-dark">
                     <tr>
-                        <th>Nama Izin</th>
-                        <th>Guard</th>
-                        <th>Deskripsi</th>
-                        <th>Aksi</th>
+                        <th class="text-white">Nama Izin</th>
+                        <th class="text-white">Guard</th>
+                        <th class="text-white">Deskripsi</th>
+                        <th class="text-white">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,3 +57,18 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script
+        src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.1.3/b-3.1.1/b-colvis-3.1.1/b-html5-3.1.1/b-print-3.1.1/sl-2.0.4/datatables.min.js">
+    </script>
+    <script>
+        var table = $('#permissionTable').DataTable({
+            layout: {
+                topEnd: [
+                    'search',
+                ],
+            },
+        })
+    </script>
+@endpush

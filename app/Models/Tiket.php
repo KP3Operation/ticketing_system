@@ -22,6 +22,13 @@ class Tiket extends Model
         static::creating(function ($tiket) {
             $tiket->idTiket = $tiket->generateIdTiket();
         });
+        
+        static::deleting(function ($tiket) {
+            foreach ($tiket->komentars as $komentar) {
+                $komentar->images()->delete();
+                $komentar->delete();
+            }
+        });
     }
 
     public function generateIdTiket()
@@ -53,5 +60,17 @@ class Tiket extends Model
 
     public function lampirans() {
         return $this->hasMany(Lampiran::class, 'idTiket');
+    }
+    
+    public function picRS() {
+        return $this->belongsTo(User::class, 'picRs', 'userId');
+    }
+
+    public function assign() {
+        return $this->belongsTo(User::class, 'assignTo', 'userId');
+    }
+
+    public function PLAviat() {
+        return $this->belongsTo(User::class, 'plAviat', 'userId');
     }
 }

@@ -31,7 +31,6 @@ class StoreMasterUserRequest extends FormRequest
             'idKaryawan' => 'nullable|string|unique:users',
             'role' => 'nullable|string',
             'idDepartment' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'statusUser' => 'required',
         ];
     }

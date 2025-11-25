@@ -88,7 +88,13 @@ class TiketController extends Controller
         $tiket = Tiket::create($validator->validated());
 
         foreach ($temporaryFiles as $temporaryFile) {
-            Storage::copy('images/tmp/' . $temporaryFile->folder . '/' . $temporaryFile->file, 'lampirans/' . $temporaryFile->folder . '/' . $temporaryFile->file);
+            $folderPath = 'public/images/' . $temporaryFile->folder;
+            if (!Storage::exists($folderPath)) {
+                Storage::makeDirectory($folderPath);
+                chmod(Storage::path($folderPath), 0755);
+            }
+            
+            Storage::copy('images/tmp/' . $temporaryFile->folder . '/' . $temporaryFile->file, $folderPath . '/' . $temporaryFile->file);
             Lampiran::create([
                 'idTiket' => $tiket->idTiket,
                 'name' => $temporaryFile->file,
@@ -113,12 +119,6 @@ class TiketController extends Controller
 
     public function update(StoreTiketRequest $request, $idTiket)
     {
-        $request->merge([
-            'tglDikerjakan' => \Carbon\Carbon::parse($request->input('tglDikerjakan'))->format('Y-m-d'),
-            'dueDate' => \Carbon\Carbon::parse($request->input('dueDate'))->format('Y-m-d'),
-            'tglSelesai' => \Carbon\Carbon::parse($request->input('tglSelesai'))->format('Y-m-d'),
-        ]);
-
         $tiket = Tiket::findOrFail($idTiket);
         $tiket->update($request->all());
 

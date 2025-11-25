@@ -9,16 +9,16 @@
 
     <div class="card mb-3">
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-striped" id="userTable">
                 <thead class="table-dark">
                     <tr>
-                        <th>Nama User</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Nama Proyek</th>
-                        <th>Grup User</th>
-                        <th>Status Pengguna</th>
-                        <th>Aksi</th>
+                        <th class="text-white">Nama User</th>
+                        <th class="text-white">Username</th>
+                        <th class="text-white">Email</th>
+                        <th class="text-white">Nama Proyek</th>
+                        <th class="text-white">Grup User</th>
+                        <th class="text-white">Status Pengguna</th>
+                        <th class="text-white">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -91,5 +91,18 @@
                 }
             });
         });
+    </script>
+
+    <script
+        src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.1.3/b-3.1.1/b-colvis-3.1.1/b-html5-3.1.1/b-print-3.1.1/sl-2.0.4/datatables.min.js">
+    </script>
+    <script>
+        var table = $('#userTable').DataTable({
+            layout: {
+                topEnd: [
+                    'search',
+                ],
+            },
+        })
     </script>
 @endpush

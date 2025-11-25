@@ -10,15 +10,15 @@
 
     <div class="card">
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-striped text-start" id="mandaysTable">
                 <thead class="table-dark">
                     <tr>
-                        <th>Nama Proyek</th>
-                        <th>Tahun</th>
-                        <th>Mandays</th>
-                        <th>Terpakai</th>
-                        <th>Sisa</th>
-                        <th>Aksi</th>
+                        <th class="text-white">Nama Proyek</th>
+                        <th class="text-white">Tahun</th>
+                        <th class="text-white">Mandays</th>
+                        <th class="text-white">Terpakai</th>
+                        <th class="text-white">Sisa</th>
+                        <th class="text-white">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -64,3 +64,18 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script
+        src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.1.3/b-3.1.1/b-colvis-3.1.1/b-html5-3.1.1/b-print-3.1.1/sl-2.0.4/datatables.min.js">
+    </script>
+    <script>
+        var table = $('#mandaysTable').DataTable({
+            layout: {
+                topEnd: [
+                    'search',
+                ],
+            },
+        })
+    </script>
+@endpush
