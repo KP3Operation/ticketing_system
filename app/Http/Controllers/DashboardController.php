@@ -18,6 +18,13 @@ class DashboardController extends Controller
             ->where('status', 'Closed')
             ->get();
 
-        return view('dashbord.index', compact('tikets', 'status', 'finished'));
+        // Hitung total tiket yang sudah closed di bulan ini
+        $totalClosed = Tiket::where('assignTo', Auth::id())
+            ->where('status', 'Closed')
+            ->whereMonth('tglSelesai', now()->month)
+            ->whereYear('tglSelesai', now()->year)
+            ->count();
+
+        return view('dashbord.index', compact('tikets', 'status', 'finished', 'totalClosed'));
     }
 }
