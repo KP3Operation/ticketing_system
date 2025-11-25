@@ -45,7 +45,7 @@
                         <div class="col-sm-4">
                             <select id="prioritas" class="form-select" name="prioritas" required>
                                 <option value="" disabled selected>Pilih Prioritas</option>
-                                @foreach (['Low', 'Normal', 'High', 'Urgent', 'Immediate', 'Reject'] as $prioritas)
+                                @foreach (['Low', 'Normal', 'High', 'Urgent', 'Immediete'] as $prioritas)
                                     <option value="{{ $prioritas }}">{{ $prioritas }}</option>
                                 @endforeach
                             </select>
