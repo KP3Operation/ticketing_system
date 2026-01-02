@@ -32,7 +32,13 @@ Route::resource('auth', AuthController::class);
 
 // Route untuk serve lampiran dari storage private (tanpa auth untuk fleksibilitas)
 Route::get('/storage/lampirans/{path}', function ($path) {
-    $filePath = storage_path('app/lampirans/' . $path);
+    // Coba cari di public/images dulu (untuk file lama)
+    $filePath = storage_path('app/public/images/' . $path);
+
+    // Kalau tidak ada, cari di lampirans (untuk file baru)
+    if (!file_exists($filePath)) {
+        $filePath = storage_path('app/lampirans/' . $path);
+    }
 
     if (!file_exists($filePath)) {
         abort(404);
