@@ -30,6 +30,17 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::resource('auth', AuthController::class);
 
+// Route untuk serve lampiran dari storage private (tanpa auth untuk fleksibilitas)
+Route::get('/storage/lampirans/{path}', function ($path) {
+    $filePath = storage_path('app/lampirans/' . $path);
+
+    if (!file_exists($filePath)) {
+        abort(404);
+    }
+
+    return response()->file($filePath);
+})->where('path', '.*')->name('lampiran.show');
+
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('masterUser', MasterUserController::class)->only('index', 'show', 'store', 'update', 'destroy');
